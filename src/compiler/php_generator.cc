@@ -289,6 +289,13 @@ void PrintService(const ServiceDescriptor* service,
         "$$channel = null) {\n");
     out->Indent();
     out->Indent();
+    out->Print(
+    "if (!isset($$opts['grpc_call_invoker'])) {\n"
+    );
+    out->Indent();
+    out->Print("$$opts['grpc_call_invoker'] = new \\App\\Libs\\grpc\\ZipkinCallInvoker();\n");
+    out->Outdent();
+    out->Print("}\n");
     out->Print("parent::__construct($$hostname, $$opts, $$channel);\n");
     out->Outdent();
     out->Outdent();
